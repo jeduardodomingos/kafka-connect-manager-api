@@ -9,9 +9,8 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.http.HttpMethod.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.http.HttpMethod.GET;
 
 public abstract class AbstractHttpService {
 
@@ -25,13 +24,18 @@ public abstract class AbstractHttpService {
     }
 
     protected <T> T get(String url, HttpHeaders httpHeaders, Class<T> responseType) {
-        LOGGER.info("Making a GET HTTP request");
+        LOGGER.info("AbstractHttpService.get for url {}", url);
         return this.restTemplate.exchange(url, GET, new HttpEntity<>(httpHeaders), responseType).getBody();
     }
 
-    protected <T> Object post(String url, Object body, HttpHeaders httpHeaders, Class<T> responseType) {
-        LOGGER.info("Making a GET HTTP request");
-        return this.restTemplate.exchange(url, POST, new HttpEntity<>(body, httpHeaders), responseType);
+    protected <T> T post(String url, Object body, HttpHeaders httpHeaders, Class<T> responseType) {
+        LOGGER.info("AbstractHttpService.post for url {}", url);
+        return this.restTemplate.exchange(url, POST, new HttpEntity<>(body, httpHeaders), responseType).getBody();
+    }
+
+    protected <T> T put(String url, Object body, HttpHeaders httpHeaders, Class<T> responseType) {
+        LOGGER.info("AbstractHttpService.put for url {}", url);
+        return this.restTemplate.exchange(url, PUT, new HttpEntity<>(body, httpHeaders), responseType).getBody();
     }
 
     public MultiValueMap<String, String> buildBearerAuthorizationHeader(String token) {

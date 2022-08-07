@@ -4,9 +4,9 @@ public class ForbiddenException extends RuntimeException {
 
     private static final long serialVersionUID = 4706708993072780944L;
 
-    private String code;
+    private Integer code;
 
-    public ForbiddenException(String message, String code) {
+    public ForbiddenException(String message, Integer code) {
         super(message);
         this.code = code;
     }
@@ -15,8 +15,6 @@ public class ForbiddenException extends RuntimeException {
         super();
     }
 
-    public String getCode() {
-        return code;
-    }
+
 
 }

@@ -1,17 +1,17 @@
 package org.kafka.connector.manager.exception.model;
 
-public class NotFoundException extends RuntimeException {
+public class ConflictException extends RuntimeException{
 
-    private static final long serialVersionUID = 4706708993072780944L;;
+    private static final long serialVersionUID = -6492774410268514507L;
 
     private Integer code;
 
-    public NotFoundException(String message, Integer code) {
+    public ConflictException(String message, Integer code) {
         super(message);
         this.code = code;
     }
 
-    public NotFoundException() {
+    public ConflictException() {
         super();
     }
 
