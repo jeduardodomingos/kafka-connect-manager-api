@@ -1,7 +1,8 @@
 package org.kafka.connector.manager.controller;
 
-import org.kafka.connector.manager.model.request.DebeziumConnectorRequest;
-import org.kafka.connector.manager.model.response.DebeziumConnectorResponse;
+import org.kafka.connector.manager.model.request.ConnectorRequest;
+import org.kafka.connector.manager.model.response.ConnectorResponse;
+import org.kafka.connector.manager.model.response.ConnectorStatusResponse;
 import org.kafka.connector.manager.service.KafkaConnectorDebeziumHTTPService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,13 +28,34 @@ public class KafkaConnectorDebeziumController {
     @ResponseStatus(OK)
     public String[] listConnectors(){
         LOGGER.info("KafkaConnectorDebeziumController.listConnectors");
-        return debeziumHTTPService.listConnectors();
+        return this.debeziumHTTPService.listConnectors();
     }
 
     @PostMapping
     @ResponseStatus(CREATED)
-    public Object createConnector(@RequestBody DebeziumConnectorRequest request) {
+    public ConnectorResponse createConnector(@RequestBody ConnectorRequest request) {
         LOGGER.info("Initializing KafkaConnectorDebeziumController.createConnector");
-        return debeziumHTTPService.createConnector(request);
+        return this.debeziumHTTPService.createConnector(request);
+    }
+
+    @PostMapping("/{connectorName}/restart")
+    @ResponseStatus(OK)
+    public void restartConnector(@PathVariable("connectorName") String connectorName) {
+        LOGGER.info("Initializing KafkaConnectorDebeziumController.restartConnector");
+        this.debeziumHTTPService.restartConnector(connectorName);
+    }
+
+    @PostMapping("/{connectorName}/restart/failedTasks")
+    @ResponseStatus(OK)
+    public void restartConnectorFailedTasks(@PathVariable("connectorName") String connectorName) {
+        LOGGER.info("Initializing KafkaConnectorDebeziumController.restartConnector");
+        this.debeziumHTTPService.restartAllFailedTasks(connectorName);
+    }
+
+    @GetMapping("/{connectorName}/status")
+    @ResponseStatus(OK)
+    public ConnectorStatusResponse getConnectorStatus(@PathVariable("connectorName") String connectorName) {
+        LOGGER.info("Initializing KafkaConnectorDebeziumController.getConnectorStatus");
+        return this.debeziumHTTPService.getConnectorStatus(connectorName);
     }
 }

@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-public class DebeziumConnectorResponse implements Serializable {
+public class ConnectorResponse implements Serializable {
 
     private static final long serialVersionUID = 3859963174090249649L;
 
@@ -16,7 +16,7 @@ public class DebeziumConnectorResponse implements Serializable {
         return name;
     }
 
-    public DebeziumConnectorResponse setName(String name) {
+    public ConnectorResponse setName(String name) {
         this.name = name;
         return this;
     }
@@ -25,7 +25,7 @@ public class DebeziumConnectorResponse implements Serializable {
         return config;
     }
 
-    public DebeziumConnectorResponse setConfig(Map<String, String> config) {
+    public ConnectorResponse setConfig(Map<String, String> config) {
         this.config = config;
         return this;
     }
@@ -34,7 +34,7 @@ public class DebeziumConnectorResponse implements Serializable {
         return tasks;
     }
 
-    public DebeziumConnectorResponse setTasks(List<Map<String, String>> tasks) {
+    public ConnectorResponse setTasks(List<Map<String, String>> tasks) {
         this.tasks = tasks;
         return this;
     }

@@ -1,12 +1,13 @@
 package org.kafka.connector.manager.abstractions.http;
 
-import org.kafka.connector.manager.exception.handler.HttpExceptionHandler;
+import org.kafka.connector.manager.exception.handler.DebeziumAPIHttpExceptionHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.DefaultResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
 
 import static org.springframework.http.HttpMethod.*;
@@ -18,9 +19,9 @@ public abstract class AbstractHttpService {
 
     protected RestTemplate restTemplate;
 
-    public AbstractHttpService(RestTemplate restTemplate) {
+    public AbstractHttpService(RestTemplate restTemplate, DefaultResponseErrorHandler errorHandler) {
         this.restTemplate = restTemplate;
-        this.restTemplate.setErrorHandler(new HttpExceptionHandler());
+        this.restTemplate.setErrorHandler(errorHandler);
     }
 
     protected <T> T get(String url, HttpHeaders httpHeaders, Class<T> responseType) {
@@ -31,6 +32,11 @@ public abstract class AbstractHttpService {
     protected <T> T post(String url, Object body, HttpHeaders httpHeaders, Class<T> responseType) {
         LOGGER.info("AbstractHttpService.post for url {}", url);
         return this.restTemplate.exchange(url, POST, new HttpEntity<>(body, httpHeaders), responseType).getBody();
+    }
+
+    protected <T> T post(String url, HttpHeaders httpHeaders, Class<T> responseType) {
+        LOGGER.info("AbstractHttpService.post for url {}", url);
+        return this.restTemplate.exchange(url, POST, new HttpEntity<>(httpHeaders), responseType).getBody();
     }
 
     protected <T> T put(String url, Object body, HttpHeaders httpHeaders, Class<T> responseType) {

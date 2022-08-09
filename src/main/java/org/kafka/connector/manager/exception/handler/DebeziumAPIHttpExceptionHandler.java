@@ -13,11 +13,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-public class HttpExceptionHandler extends DefaultResponseErrorHandler {
+public class DebeziumAPIHttpExceptionHandler extends DefaultResponseErrorHandler {
 
     @Override
     protected void handleError(ClientHttpResponse response, HttpStatus code) throws IOException {
