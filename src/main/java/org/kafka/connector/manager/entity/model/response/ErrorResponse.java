@@ -1,4 +1,4 @@
-package org.kafka.connector.manager.model.response;
+package org.kafka.connector.manager.entity.model.response;
 
 public class ErrorResponse {
 

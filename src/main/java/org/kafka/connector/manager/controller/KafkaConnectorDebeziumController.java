@@ -1,12 +1,16 @@
 package org.kafka.connector.manager.controller;
 
-import org.kafka.connector.manager.model.request.ConnectorRequest;
-import org.kafka.connector.manager.model.response.ConnectorResponse;
-import org.kafka.connector.manager.model.response.ConnectorStatusResponse;
+import org.kafka.connector.manager.entity.model.request.ConnectorRequest;
+import org.kafka.connector.manager.entity.model.response.ConnectorFullResponse;
+import org.kafka.connector.manager.entity.model.response.ConnectorInfoResponse;
+import org.kafka.connector.manager.entity.model.response.ConnectorResponse;
+import org.kafka.connector.manager.entity.model.response.ConnectorStatusResponse;
 import org.kafka.connector.manager.service.KafkaConnectorDebeziumHTTPService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
@@ -29,6 +33,13 @@ public class KafkaConnectorDebeziumController {
     public String[] listConnectors(){
         LOGGER.info("KafkaConnectorDebeziumController.listConnectors");
         return this.debeziumHTTPService.listConnectors();
+    }
+
+    @GetMapping("/full")
+    @ResponseStatus(OK)
+    public List<ConnectorFullResponse> listConnectorsFullInfo(){
+        LOGGER.info("KafkaConnectorDebeziumController.listConnectors");
+        return this.debeziumHTTPService.getFullConnectorsInfo();
     }
 
     @PostMapping
@@ -57,5 +68,13 @@ public class KafkaConnectorDebeziumController {
     public ConnectorStatusResponse getConnectorStatus(@PathVariable("connectorName") String connectorName) {
         LOGGER.info("Initializing KafkaConnectorDebeziumController.getConnectorStatus");
         return this.debeziumHTTPService.getConnectorStatus(connectorName);
+    }
+
+    @GetMapping("/{connectorName}/info")
+    @ResponseStatus(OK)
+    public ConnectorInfoResponse getConnectorInfo(@PathVariable("connectorName") String connectorName) {
+        LOGGER.info("Initializing KafkaConnectorDebeziumController.getConnectorStatus");
+        this.debeziumHTTPService.getFullConnectorsInfo();
+        return this.debeziumHTTPService.getConnectorInfo(connectorName);
     }
 }

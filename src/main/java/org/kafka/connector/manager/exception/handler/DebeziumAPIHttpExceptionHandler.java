@@ -5,8 +5,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.kafka.connector.manager.exception.model.ConflictException;
 import org.kafka.connector.manager.exception.model.ForbiddenException;
 import org.kafka.connector.manager.exception.model.NotFoundException;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.client.ClientHttpResponse;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.DefaultResponseErrorHandler;
 
 import java.io.BufferedReader;
@@ -15,6 +17,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.stream.Collectors;
 
+@Component
 public class DebeziumAPIHttpExceptionHandler extends DefaultResponseErrorHandler {
 
     @Override

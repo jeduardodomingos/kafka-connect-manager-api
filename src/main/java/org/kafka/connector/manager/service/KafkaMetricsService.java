@@ -1,13 +1,13 @@
 package org.kafka.connector.manager.service;
 
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-import java.util.stream.Collectors;
 
 @Service
 public class KafkaMetricsService {
@@ -26,6 +26,11 @@ public class KafkaMetricsService {
 
     @Value("${kafka.value.deserializer}")
     private String kafkaValueDeserializer;
+
+    @Autowired
+    public KafkaMetricsService(){
+
+    }
 
     private <K, V> KafkaConsumer<K, V> buildConsumer() {
         Properties consumerProperties = new Properties();

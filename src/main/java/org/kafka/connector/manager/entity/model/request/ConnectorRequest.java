@@ -1,4 +1,4 @@
-package org.kafka.connector.manager.model.request;
+package org.kafka.connector.manager.entity.model.request;
 
 import java.io.Serializable;
 import java.util.Map;
