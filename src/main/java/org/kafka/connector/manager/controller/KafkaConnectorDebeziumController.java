@@ -16,7 +16,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 
 @RestController
-@RequestMapping("/v1/debezium")
+@RequestMapping("/v1/debezium/connectors")
 public class KafkaConnectorDebeziumController {
 
     private final Logger LOGGER = LoggerFactory.getLogger(KafkaConnectorDebeziumController.class);
@@ -74,7 +74,6 @@ public class KafkaConnectorDebeziumController {
     @ResponseStatus(OK)
     public ConnectorInfoResponse getConnectorInfo(@PathVariable("connectorName") String connectorName) {
         LOGGER.info("Initializing KafkaConnectorDebeziumController.getConnectorStatus");
-        this.debeziumHTTPService.getFullConnectorsInfo();
         return this.debeziumHTTPService.getConnectorInfo(connectorName);
     }
 }

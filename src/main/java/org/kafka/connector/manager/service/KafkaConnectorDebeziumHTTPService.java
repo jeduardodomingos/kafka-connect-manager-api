@@ -74,7 +74,7 @@ public class KafkaConnectorDebeziumHTTPService extends AbstractHttpService imple
 
         HttpHeaders requestHeader = buildHeader(new LinkedMultiValueMap<>());
 
-        Map<String, ConnectorInfoTaskResponse> response = this.get(String.format("%1$s/connectors?expand=info&expand=status", kafkaConnectHost), requestHeader, Map.class);
+        Map<String, Object> response = this.get(String.format("%1$s/connectors?expand=info&expand=status", kafkaConnectHost), requestHeader, Map.class);
 
         return response.entrySet().stream().map(entry -> {
             ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);

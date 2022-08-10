@@ -12,7 +12,7 @@ public class ConnectorInfoResponse implements Serializable {
     private static final long serialVersionUID = -1526362813479592742L;
 
     private Map<String, String> config;
-    private List<ConnectorInfoTaskResponse> tasks;
+    private List<Map<String, Object>> tasks;
     private String type;
 
     public Map<String, String> getConfig() {
@@ -24,11 +24,11 @@ public class ConnectorInfoResponse implements Serializable {
         return this;
     }
 
-    public List<ConnectorInfoTaskResponse> getTasks() {
+    public List<Map<String, Object>> getTasks() {
         return tasks;
     }
 
-    public ConnectorInfoResponse setTasks(List<ConnectorInfoTaskResponse> tasks) {
+    public ConnectorInfoResponse setTasks(List<Map<String, Object>> tasks) {
         this.tasks = tasks;
         return this;
     }
